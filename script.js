@@ -29,11 +29,12 @@ let questionNumber = 0;
 let questionDiv = document.querySelector("#quiz");
 let timeLeft = 40;
 let score = 0;
+let initialSave = "";
 
-//when question is answered correctly, present another question
-//when question is answered incorrectly subtract time
+
+
 //when all questions are answerd or time runs out stop game
-//when game is over allow user to save score with initials
+
 
 
 
@@ -91,7 +92,8 @@ function randomQuestion() {
                 score += 10;
                 console.log(score)
             }else {
-        
+
+        //when question is answered incorrectly subtract time
                 event.target.style.backgroundColor = "red"
                 timeLeft-= 10;
             }
@@ -100,6 +102,7 @@ function randomQuestion() {
            li.append(button)
            ul.append(li)    
         }
+        //when question is answered correctly, present another question
         let nextBtn = document.createElement("button")
         nextBtn.innerHTML = "Next Question";
         nextBtn.addEventListener("click", function(event){
@@ -126,13 +129,20 @@ function submitInitals(){
     saveBtn.addEventListener("click", function(event){
         event.preventDefault()
         //store initials, score in local storage
-        finalPage()
+        scorePage()
     })
     div.append(span, input, saveBtn);
     document.querySelector("#quiz").append(div);
 }
-//save score
-function finalPage(){
+
+
+//when game is over allow user to save score with initials
+function scorePage(){
     document.querySelector("#quiz").innerHTML = "";
-    let p
+    let scoreDiv = document.querySelector("div")
+    let p = document.querySelector("p")
+    scoreDiv.append(p)
+    localStorage.setItem("initials", "initials")
+    localStorage.setItem("score", score)
+
 }
