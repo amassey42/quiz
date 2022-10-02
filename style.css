@@ -1,0 +1,46 @@
+:root{
+    --main: #6699CC;
+    --accent: #504A4B;
+}
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+
+}
+body{
+display: block;
+}
+
+header{
+    background-color: var(--main);
+    text-align: center;
+    padding: 25px;
+    color: var(--accent);
+}
+header h3{
+    text-align: right;
+}
+main{
+    min-height: 70vh;
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
+
+button{
+    padding: 25px;
+    border-radius: 20px;
+    font-size: 25px;
+    width: 500px;
+}
+button #start-quiz{
+    background-color: var(--main);
+    color: var(--accent);
+}
+
+ul{
+    list-style-type: none;
+    padding: 10px;
+}
