@@ -31,11 +31,7 @@ let timeLeft = 40;
 let score = 0;
 let initialSave = "";
 
-
-
 //when all questions are answerd or time runs out stop game
-
-
 
 
 //click start button start game and timer
@@ -66,6 +62,7 @@ function countdown() {
         timerEl.textContent = '';
         // Use `clearInterval()` to stop the timer
         clearInterval(timeInterval);
+        submitInitals()
       }
     }, 1000);
   }
@@ -78,6 +75,7 @@ function randomQuestion() {
         questionDiv.innerHTML = "";
         let currentQuestion = myQuestions[questionNumber];
         let h2El = document.createElement("h2");
+        //puts the current question into an h2 in my html
         h2El.innerHTML = currentQuestion.question;
         let ul = document.createElement("ul");
         for (let i = 0; i < currentQuestion.answers.length; i++) {
@@ -87,7 +85,7 @@ function randomQuestion() {
             event.preventDefault()
             console.log(event.target.innerHTML)
             if (currentQuestion.correctAnswer == event.target.innerHTML){
-                
+        //when question is answered correclty at 10 to score
                 event.target.style.backgroundColor = "green"
                 score += 10;
                 console.log(score)
@@ -128,8 +126,9 @@ function submitInitals(){
     saveBtn.innerHTML = "Submit Score"
     saveBtn.addEventListener("click", function(event){
         event.preventDefault()
-        //store initials, score in local storage
-        scorePage()
+        let intials = input.value;
+        //access score page
+        scorePage(intials, score);
     })
     div.append(span, input, saveBtn);
     document.querySelector("#quiz").append(div);
@@ -137,12 +136,25 @@ function submitInitals(){
 
 
 //when game is over allow user to save score with initials
-function scorePage(){
+//store initials, score in local storage
+function scorePage(intials, score){
     document.querySelector("#quiz").innerHTML = "";
     let scoreDiv = document.querySelector("div")
     let p = document.querySelector("p")
     scoreDiv.append(p)
-    localStorage.setItem("initials", "initials")
-    localStorage.setItem("score", score)
+    let scoreArray = JSON.parse(localStorage.getItem("scoreArray"))
+    let scoreObject = {
+        initals: intials,
+        score: score
+    }
+    if(scoreArray===null){
+        scoreArray = [];
+    }
+    scoreArray.push(scoreObject);
+    localStorage.setItem("scoreArray", JSON.stringify(scoreArray))
 
+}
+
+function showScores(scoreArray){
+    
 }
