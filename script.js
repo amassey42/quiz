@@ -30,6 +30,7 @@ let questionDiv = document.querySelector("#quiz");
 let timeLeft = 40;
 let score = 0;
 let initialSave = "";
+let scoreAndInitials = " ";
 
 //when all questions are answerd or time runs out stop game
 
@@ -62,7 +63,7 @@ function countdown() {
         timerEl.textContent = '';
         // Use `clearInterval()` to stop the timer
         clearInterval(timeInterval);
-        submitInitals()
+        submitinitials()
       }
     }, 1000);
   }
@@ -112,14 +113,14 @@ function randomQuestion() {
         })
         questionDiv.append(h2El , ul, nextBtn)
     }else {
-        submitInitals()
+        submitinitials()
         timeLeft = 0;
     }
 
 }
 
 
-function submitInitals(){
+function submitinitials(){
     document.querySelector("#quiz").innerHTML = "";
     let div = document.createElement("div");
     let span = document.createElement("span");
@@ -129,9 +130,9 @@ function submitInitals(){
     saveBtn.innerHTML = "Submit Score"
     saveBtn.addEventListener("click", function(event){
         event.preventDefault()
-        let intials = input.value;
+        let initials = input.value;
         //access score page
-        scorePage(intials, score);
+        scorePage(initials, score);
     })
     div.append(span, input, saveBtn);
     document.querySelector("#quiz").append(div);
@@ -140,12 +141,12 @@ function submitInitals(){
 
 //when game is over allow user to save score with initials
 //store initials, score in local storage
-function scorePage(intials, score){
+function scorePage(initials, score){
     // let scoreDiv = document.querySelector("div")
     // let p = document.querySelector("p")
     let scoreArray = JSON.parse(localStorage.getItem("scoreArray"))
     let scoreObject = {
-        initals: intials,
+        initials: initials,
         score: score
     }
     if(scoreArray===null){
@@ -154,11 +155,17 @@ function scorePage(intials, score){
     scoreArray.push(scoreObject);
     localStorage.setItem("scoreArray", JSON.stringify(scoreArray))
 
-    document.querySelector("#quiz").innerHTML = JSON.stringify(scoreArray);
+    for (let i = 0; i < scoreArray.length; i++) {
+       score = scoreArray[i]["score"];
+       initialSave = scoreArray[i]["initials"];
+       scoreAndInitials += ("score: "+score +" "+ "Initials: " +initialSave + "<br>");
+    }
+    // document.querySelector("#quiz").innerHTML = ("Score: "+ score +" " + "Initials: " +initialSave);
+    document.querySelector("#quiz").innerHTML = (scoreAndInitials);
+    // document.querySelector("#quiz").innerHTML = initialSave;
+    console.log(score)
+    console.log(initialSave)
+    // document.querySelector("#quiz").innerHTML = JSON.stringify(scoreArray);
 
-    // scoreArray.sort((a , b) =>{
-    //     return b[1] - a[1]
-    // })
-   
 
 }
