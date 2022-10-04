@@ -99,8 +99,10 @@ function randomQuestion() {
            let li = document.createElement("li");
            li.append(button)
            ul.append(li)    
+           
         }
         //when question is answered correctly, present another question
+        
         let nextBtn = document.createElement("button")
         nextBtn.innerHTML = "Next Question";
         nextBtn.addEventListener("click", function(event){
@@ -111,6 +113,7 @@ function randomQuestion() {
         questionDiv.append(h2El , ul, nextBtn)
     }else {
         submitInitals()
+        timeLeft = 0;
     }
 
 }
@@ -138,10 +141,8 @@ function submitInitals(){
 //when game is over allow user to save score with initials
 //store initials, score in local storage
 function scorePage(intials, score){
-    document.querySelector("#quiz").innerHTML = "";
-    let scoreDiv = document.querySelector("div")
-    let p = document.querySelector("p")
-    scoreDiv.append(p)
+    // let scoreDiv = document.querySelector("div")
+    // let p = document.querySelector("p")
     let scoreArray = JSON.parse(localStorage.getItem("scoreArray"))
     let scoreObject = {
         initals: intials,
@@ -153,8 +154,11 @@ function scorePage(intials, score){
     scoreArray.push(scoreObject);
     localStorage.setItem("scoreArray", JSON.stringify(scoreArray))
 
-}
+    document.querySelector("#quiz").innerHTML = JSON.stringify(scoreArray);
 
-function showScores(scoreArray){
-    
+    // scoreArray.sort((a , b) =>{
+    //     return b[1] - a[1]
+    // })
+   
+
 }
