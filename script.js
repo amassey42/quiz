@@ -119,7 +119,7 @@ function randomQuestion() {
 
 }
 
-
+//creats a spot to enter initials and submit initials plus score.
 function submitinitials(){
     document.querySelector("#quiz").innerHTML = "";
     let div = document.createElement("div");
@@ -159,6 +159,7 @@ function scorePage(initials, score){
        score = scoreArray[i]["score"];
        initialSave = scoreArray[i]["initials"];
        scoreAndInitials += ("score: "+score +" "+ "Initials: " +initialSave + "<br>");
+
     }
     // document.querySelector("#quiz").innerHTML = ("Score: "+ score +" " + "Initials: " +initialSave);
     document.querySelector("#quiz").innerHTML = (scoreAndInitials);
